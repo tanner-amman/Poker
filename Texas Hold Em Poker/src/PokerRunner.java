@@ -21,14 +21,17 @@ public class PokerRunner
 			{
 				Deck.fillDeck();
 				Deck.shuffle();
-				greetPlayer();
+//				greetPlayer();
 				purchaseChips();
 				createHands();
 				playPoker();
+//				HierarchyOfCards.hierarchy();
+				HierarchyOfCards.onePair();
 			}
 
 		public static void greetPlayer()
 			{
+				System.out.println("So we are going to be playing a game of poker, but we will only be playing with winning scenarios of a two of a kind, three of a kind, or a four of a kind.");
 				System.out.println("Hey player, what is your name?");
 				Scanner userInput = new Scanner(System.in);
 				name = userInput.nextLine();
@@ -102,15 +105,17 @@ public class PokerRunner
 			for (int i = 2; i >= 0; i--)
 				{
 					System.out.println(Deck.deck.get(i).getRank() + " of " + Deck.deck.get(i).getSuit());
+					playerHand.add(Deck.deck.get(i));
+					computerHand.add(Deck.deck.get(i));
 				}
 			// Give the option of folding
 			System.out.println("Would you like to make a bet? Please enter a yes or no answer.");
-			Scanner userInput1 = new Scanner(System.in);
-			String answer1 = userInput1.nextLine();
-			String upperCase1 = answer1.toUpperCase();
 			boolean goodAnswer = true;
 			while (goodAnswer)
 				{
+			Scanner userInput1 = new Scanner(System.in);
+			String answer1 = userInput1.nextLine();
+			String upperCase1 = answer1.toUpperCase();
 					if (upperCase1.equals("YES"))
 						{
 							System.out.println("How much would you like to bet? Please enter just a number, and make sure that it is within your total number of chips");
@@ -131,13 +136,15 @@ public class PokerRunner
 						}
 				}
 			 System.out.println(Deck.deck.get(3).getRank() + " of " + Deck.deck.get(3).getSuit());
-			 System.out.println("Would you like to a bet?");
+			 playerHand.add(Deck.deck.get(3));
+			 computerHand.add(Deck.deck.get(3));
+			 System.out.println("Would you like to make a bet?");
+			 boolean goodAnswer2 = true;
+			 while (goodAnswer2)
+					{
 			 Scanner userInput2 = new Scanner(System.in);
 				String answer2 = userInput2.nextLine();
 				String upperCase2 = answer2.toUpperCase();
-				boolean goodAnswer2 = true;
-				while (goodAnswer2)
-					{
 						if (upperCase2.equals("YES"))
 							{
 								System.out.println("How much would you like to bet? Please enter just a number, and make sure that it is within your total number of chips");
@@ -158,25 +165,27 @@ public class PokerRunner
 							}
 					}
 			System.out.println(Deck.deck.get(4).getRank() + " of " + Deck.deck.get(4).getSuit());
+			playerHand.add(Deck.deck.get(4));
+			computerHand.add(Deck.deck.get(4));
 			System.out.println("Would you like to make any final bets?");
-			Scanner userInput3 = new Scanner(System.in);
-			String answer3 = userInput3.nextLine();
-			String upperCase3 = answer3.toUpperCase();
 			boolean goodAnswer3 = true;
 			while (goodAnswer3)
 				{
+			Scanner userInput3 = new Scanner(System.in);
+			String answer3 = userInput3.nextLine();
+			String upperCase3 = answer3.toUpperCase();
 					if (upperCase3.equals("YES"))
 						{
-							System.out.println("How much would you like to bet? Please enter jsut a number, and make sure that it is within your total number of chips");
+							System.out.println("How much would you like to bet? Please enter just a number, and make sure that it is within your total number of chips");
 							Scanner userInput = new Scanner(System.in);
 							bet3 = userInput.nextInt();
-							goodAnswer = false;
+							goodAnswer3 = false;
 						}
 					else if (upperCase3.equals("NO"))
 						{
-							System.out.println("Ok, here is the next card flipped:");
+							System.out.println("Ok, here is who won:");
 							bet3 = 0;
-							goodAnswer = false;
+							goodAnswer3 = false;
 						}
 					else
 						{
@@ -184,6 +193,7 @@ public class PokerRunner
 						}
 				}
 			totalBet = ante + bet1 + bet2 + bet3;
+			HierarchyOfCards.onePair();
 			// compare the playerHand cards to the 5 cards and decide what the best option is 
 			// compare the computerHand cards to the 5 cards and decide what the best option is
 			// whichever hand is better then receives all the pot
